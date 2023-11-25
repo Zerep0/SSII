@@ -1,0 +1,3 @@
+# Archivos de compilación y ejecutables
+*.o
+*.out
