@@ -11,7 +11,7 @@
       "cwd": "c:/Users/ap650/OneDrive/Escritorio/SSII/SSII",
       "program": "c:/Users/ap650/OneDrive/Escritorio/SSII/SSII/build/Debug/outDebug",
       "MIMode": "gdb",
-      "miDebuggerPath": "gdb",
+      "miDebuggerPath": "c:/msys64/ucrt64/bin/gdb.exe",
       "setupCommands": [
         {
           "description": "Enable pretty-printing for gdb",

@@ -49,35 +49,39 @@ void leerBC(string BC, vector<Regla> &reglas)
     getline(archivoBC,linea);
     while(getline(archivoBC,linea))
     {
-        istringstream lineaRegla(linea);
-        Regla regla;
-        regla.enlace = Enlace::NO;
-
-        string certeza;
-        getline(lineaRegla, regla.id, ':');
-
-        string h;
-        while(getline(lineaRegla >> ws, h, ' ') && h != "Entonces")
+        if(linea != "")
         {
-            if(h != "Si" && h != "o" && h != "y")
+            istringstream lineaRegla(linea);
+            Regla regla;
+            regla.enlace = Enlace::NO;
+
+            string certeza;
+            getline(lineaRegla, regla.id, ':');
+
+            string h;
+            while(getline(lineaRegla >> ws, h, ' ') && h != "Entonces")
             {
-                regla.antecedentes.push_back(h);
-            }else
-            {
-                if(h == "o")
+                if(h != "Si" && h != "o" && h != "y")
                 {
-                    regla.enlace = Enlace::O;
-                }else if(h == "y")
+                    regla.antecedentes.push_back(h);
+                }else
                 {
-                    regla.enlace = Enlace::Y;
+                    if(h == "o")
+                    {
+                        regla.enlace = Enlace::O;
+                    }else if(h == "y")
+                    {
+                        regla.enlace = Enlace::Y;
+                    }
                 }
             }
+            getline(lineaRegla, regla.consecuente, ',');
+            lineaRegla.ignore(4);
+            getline(lineaRegla, certeza, '\n');
+            regla.FC = stod(certeza);
+            reglas.push_back(regla);
         }
-        getline(lineaRegla, regla.consecuente, ',');
-        lineaRegla.ignore(4);
-        getline(lineaRegla, certeza, '\n');
-        regla.FC = stod(certeza);
-        reglas.push_back(regla);
+
     }
 }
 
@@ -128,10 +132,10 @@ bool contenido(string Meta, vector<Hecho> baseHechos, Hecho &HMeta)
     {
         if(hecho.id == Meta)
         {
-            HMeta = hecho; 
+            HMeta = hecho;
             return true;
         }
-            
+
     }
     return false;
 }
@@ -193,7 +197,7 @@ double verificar(string Meta, vector<Hecho> &baseHechos, vector<Regla> baseConoc
             bool primeraVez = true;
             while(!estaVacio(NuevasMetas))
             {
-                string Nmet = seleccionarMeta(NuevasMetas); 
+                string Nmet = seleccionarMeta(NuevasMetas);
                 eliminar(NuevasMetas);
                 double FCVerificado = verificar(Nmet,baseHechos,baseConocimientos); // devuevle el FC del hecho o el calculado
                 if(primeraVez)
@@ -207,7 +211,7 @@ double verificar(string Meta, vector<Hecho> &baseHechos, vector<Regla> baseConoc
                     }else if (R.enlace == Enlace::O)
                     {
                         FCLocal = maximo(FCLocal,FCVerificado);
-                    }   
+                    }
                 }
             }
             // caso 3
@@ -234,8 +238,8 @@ double verificar(string Meta, vector<Hecho> &baseHechos, vector<Regla> baseConoc
         }
 
         baseHechos.push_back(HMeta);
-        
-        
+
+
     }
 
     return FCFinal;
@@ -247,7 +251,7 @@ double verificar(string Meta, vector<Hecho> &baseHechos, vector<Regla> baseConoc
 
 void encadenamiento_hacia_atras(vector<Regla> &baseConocimientos, vector<Hecho> &baseHechos, string Meta)
 {
-    verificar(Meta,baseHechos,baseConocimientos);
+     cout << verificar(Meta,baseHechos,baseConocimientos);
 }
 
 
@@ -260,29 +264,5 @@ int main(int argc, char *argv[])
     leerBC(argv[1],baseConocimientos);
     leerBH(argv[2],baseHechos,Meta);
     encadenamiento_hacia_atras(baseConocimientos,baseHechos,Meta);
-
-    /*for(Regla r : baseConocimientos)
-    {
-        cout << "Regla: " << r.id << " FC: " << r.FC << " Consecuente: " << r.consecuente << endl;
-        for(string s : r.antecedentes)
-        {
-            cout << s << ", ";
-        }
-        cout << endl << "Enlace: " << r.enlace << endl;
-    } 
-
-    for(Regla r : baseConocimientos)
-    {
-        cout << r.id << ": " << r.regla << ", FC=" << r.FC << endl;
-    }
-
-    cout << endl << endl;
-
-
-    for(Hecho h : baseHechos)
-    {
-        cout << h.id << ", FC=" << h.FC << endl;
-    }
-    cout << "Objetivo\n" << objetivo << endl;*/
 
 }

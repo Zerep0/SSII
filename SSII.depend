@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1701646034 source:c:\users\ap650\onedrive\escritorio\ssii\ssii\sbr-fc.cpp
+	<iostream>
+	<string>
+	<vector>
+	<fstream>
+	<sstream>
+
