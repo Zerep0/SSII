@@ -7,9 +7,9 @@
       "request": "launch",
       "args": [],
       "stopAtEntry": false,
-      "externalConsole": false,
-      "cwd": "/home/zerep/Documentos/GitHub/SSII",
-      "program": "/home/zerep/Documentos/GitHub/SSII/build/Debug/outDebug",
+      "externalConsole": true,
+      "cwd": "c:/Users/ap650/OneDrive/Escritorio/SSII/SSII",
+      "program": "c:/Users/ap650/OneDrive/Escritorio/SSII/SSII/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

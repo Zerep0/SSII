@@ -22,6 +22,21 @@ typedef struct{
     double FC;
 }Hecho;
 
+double FCFinal = 0;
+
+double maximo(double a, double b)
+{
+    if(a >= b)
+        return a;
+    else return b;
+}
+
+double minimo(double a, double b)
+{
+    if(a <= b)
+        return a;
+    else return b;
+}
 
 void leerBC(string BC, vector<Regla> &reglas)
 {
@@ -94,35 +109,133 @@ void leerBH(string BH, vector<Hecho> &hechos, string &objetivo)
 
 }
 
-vector<pair<string,string>> consecuentes(vector<Regla> &baseConocimientos,string objetivo)
+vector<Regla> equiparar(vector<Regla> baseConocimientos, string Meta)
 {
-
+    vector<Regla> CC;
+    for(Regla r : baseConocimientos)
+    {
+        if(r.consecuente == Meta)
+        {
+            CC.push_back(r);
+        }
+    }
+    return CC;
 }
 
-
-void equiparar()
-{
-
-}
-
-
-bool contenido(string objetivo, vector<Hecho> &baseHechos)
+bool contenido(string Meta, vector<Hecho> baseHechos, Hecho &HMeta)
 {
     for(Hecho hecho : baseHechos)
     {
-        if(hecho.id == objetivo)
+        if(hecho.id == Meta)
+        {
+            HMeta = hecho; 
             return true;
+        }
+            
     }
     return false;
 }
 
-bool verificar(string objetivo, vector<Hecho> &baseHechos)
+bool estaVacio(vector<Regla> CC)
 {
-    if(contenido(objetivo,baseHechos))
-    {
-        return true;
-    }else{
+    return CC.size() == 0;
+}
 
+bool estaVacio(vector<string> NuevasMetas)
+{
+    return NuevasMetas.size() == 0;
+}
+
+// resuelve
+Regla resolver(vector<Regla> CC)
+{
+    Regla r = CC[((int)CC.size()) - 1];
+    return r;
+}
+
+void eliminar(vector<Regla> &CC)
+{
+    CC.pop_back();
+}
+
+void eliminar(vector<string> &NuevasMetas)
+{
+    NuevasMetas.pop_back();
+}
+
+vector<string> extraerAntecedentes(Regla R)
+{
+    return R.antecedentes;
+}
+
+string seleccionarMeta(vector<string> NuevasMetas)
+{
+    string Nmet = NuevasMetas[((int)NuevasMetas.size()) - 1];
+    return Nmet;
+}
+
+int verificar(string Meta, vector<Hecho> &baseHechos, vector<Regla> baseConocimientos)
+{
+    Hecho HMeta;
+    if(contenido(Meta,baseHechos,HMeta))
+    {
+        return HMeta.FC;
+    }else{
+        vector<Regla> CC = equiparar(baseConocimientos,Meta);
+        int nCC = (int) CC.size();
+        while(!estaVacio(CC))
+        {
+
+            Regla R = resolver(CC);
+            eliminar(CC);
+            vector<string> NuevasMetas = extraerAntecedentes(R);
+            double FCLocal = 0;
+            bool primeraVez = true;
+            while(!estaVacio(NuevasMetas))
+            {
+                string Nmet = seleccionarMeta(NuevasMetas); 
+                eliminar(NuevasMetas);
+                int FCVerificado = verificar(Nmet,baseHechos,baseConocimientos); // devuevle el FC del hecho o el calculado
+                if(primeraVez)
+                {
+                    FCLocal = FCVerificado;
+                    primeraVez = false;
+                }else{
+                    if(R.enlace == Enlace::Y)
+                    {
+                        FCLocal = minimo(FCLocal,FCVerificado);
+                    }else if (R.enlace == Enlace::O)
+                    {
+                        FCLocal = maximo(FCLocal,FCVerificado);
+                    }   
+                }
+            }
+            // caso 3
+            FCLocal = FCLocal * maximo(0,R.FC);
+
+            // caso 2
+            if(nCC > 1)
+            {
+                if(FCFinal >= 0 && FCLocal >= 0)
+                {
+                    FCFinal = FCFinal + FCLocal*(1-FCFinal);
+                }
+                else if(FCFinal <= 0 && FCLocal <= 0)
+                {
+                    FCFinal = FCFinal + FCLocal*(1+FCFinal);
+                }
+                else
+                {
+                    FCFinal = (FCFinal + FCLocal)/(1 - minimo(abs(FCFinal),abs(FCLocal)));
+                }
+            }else{
+                FCFinal = FCLocal;
+            }
+        }
+
+        baseHechos.push_back(HMeta);
+        
+        
     }
 
 
@@ -132,11 +245,9 @@ bool verificar(string objetivo, vector<Hecho> &baseHechos)
 
 }
 
-bool encadenamiento_hacia_atras(vector<Regla> &baseConocimientos, vector<Hecho> &baseHechos, string objetivo)
+void encadenamiento_hacia_atras(vector<Regla> &baseConocimientos, vector<Hecho> &baseHechos, string Meta)
 {
-    if(verificar(objetivo,baseHechos))
-        return true;
-    else return false;
+    verificar(Meta,baseHechos,baseConocimientos);
 }
 
 
@@ -145,11 +256,12 @@ int main(int argc, char *argv[])
 {
     vector<Regla> baseConocimientos;
     vector<Hecho> baseHechos;
-    string objetivo;
+    string Meta;
     leerBC(argv[1],baseConocimientos);
-    leerBH(argv[2],baseHechos,objetivo);
+    leerBH(argv[2],baseHechos,Meta);
+    encadenamiento_hacia_atras(baseConocimientos,baseHechos,Meta);
 
-    for(Regla r : baseConocimientos)
+    /*for(Regla r : baseConocimientos)
     {
         cout << "Regla: " << r.id << " FC: " << r.FC << " Consecuente: " << r.consecuente << endl;
         for(string s : r.antecedentes)
@@ -159,7 +271,7 @@ int main(int argc, char *argv[])
         cout << endl << "Enlace: " << r.enlace << endl;
     } 
 
-    /*for(Regla r : baseConocimientos)
+    for(Regla r : baseConocimientos)
     {
         cout << r.id << ": " << r.regla << ", FC=" << r.FC << endl;
     }
