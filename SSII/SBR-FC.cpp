@@ -149,7 +149,7 @@ bool estaVacio(vector<string> NuevasMetas)
 // resuelve
 Regla resolver(vector<Regla> CC)
 {
-    Regla r = CC[((int)CC.size()) - 1];
+    Regla r = CC[CC.size() - 1];
     return r;
 }
 
@@ -170,11 +170,11 @@ vector<string> extraerAntecedentes(Regla R)
 
 string seleccionarMeta(vector<string> NuevasMetas)
 {
-    string Nmet = NuevasMetas[((int)NuevasMetas.size()) - 1];
+    string Nmet = NuevasMetas[NuevasMetas.size() - 1];
     return Nmet;
 }
 
-int verificar(string Meta, vector<Hecho> &baseHechos, vector<Regla> baseConocimientos)
+double verificar(string Meta, vector<Hecho> &baseHechos, vector<Regla> baseConocimientos)
 {
     Hecho HMeta;
     if(contenido(Meta,baseHechos,HMeta))
@@ -195,7 +195,7 @@ int verificar(string Meta, vector<Hecho> &baseHechos, vector<Regla> baseConocimi
             {
                 string Nmet = seleccionarMeta(NuevasMetas); 
                 eliminar(NuevasMetas);
-                int FCVerificado = verificar(Nmet,baseHechos,baseConocimientos); // devuevle el FC del hecho o el calculado
+                double FCVerificado = verificar(Nmet,baseHechos,baseConocimientos); // devuevle el FC del hecho o el calculado
                 if(primeraVez)
                 {
                     FCLocal = FCVerificado;
@@ -238,7 +238,7 @@ int verificar(string Meta, vector<Hecho> &baseHechos, vector<Regla> baseConocimi
         
     }
 
-
+    return FCFinal;
 
 
 
