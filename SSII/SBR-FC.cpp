@@ -254,8 +254,6 @@ void encadenamiento_hacia_atras(vector<Regla> &baseConocimientos, vector<Hecho> 
      cout << verificar(Meta,baseHechos,baseConocimientos);
 }
 
-
-
 int main(int argc, char *argv[])
 {
     vector<Regla> baseConocimientos;

@@ -1,17 +1,15 @@
-{
-  "version": "0.2.0",
-  "configurations": [
+
     {
       "name": "C/C++ Runner: Debug Session",
       "type": "cppdbg",
       "request": "launch",
-      "args": ["BC-e.txt","BH-e.txt"],
+      "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
       "cwd": "c:/Users/ap650/OneDrive/Escritorio/SSII/SSII",
       "program": "c:/Users/ap650/OneDrive/Escritorio/SSII/SSII/build/Debug/outDebug",
       "MIMode": "gdb",
-      "miDebuggerPath": "c:/msys64/ucrt64/bin/gdb.exe",
+      "miDebuggerPath": "gdb",
       "setupCommands": [
         {
           "description": "Enable pretty-printing for gdb",
@@ -20,5 +18,3 @@
         }
       ]
     }
-  ]
-}
