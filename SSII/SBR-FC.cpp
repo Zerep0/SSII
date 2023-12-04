@@ -43,7 +43,7 @@ void imprimirCC(vector<Regla> CC)
 
 void imprimirAntecedentes(Regla r)
 {
-    bitacora << "Antecedente/s de la regla extraida: ";
+    bitacora << "Antecedente/s de " << r.id << ": ";
     for(int i = 0; i < int(r.antecedentes.size()) - 1; i++)
     {
          bitacora << r.antecedentes[i] << ", ";
@@ -246,33 +246,35 @@ double verificar(string Meta, vector<Hecho> &baseHechos, vector<Regla> baseConoc
                         FCLocal = minimo(FCLocal,FCVerificado);
                     }else if (R.enlace == Enlace::O)
                     {
-                        bitacora << "Caso 1: maximo entre " << FCLocal << " y " << FCVerificado  << endl;
+                        bitacora << "Caso 1: maximo entre " << FCLocal << " o " << FCVerificado  << endl;
                         FCLocal = maximo(FCLocal,FCVerificado);
                     }
                 }
             }
             // caso 3
-            bitacora << "Caso 3: " << R.FC << " * " << maximo(0,FCLocal) << endl;
-            FCLocal = round(R.FC * maximo(0,FCLocal) * 100) / 100;
+            bitacora << "Caso 3: " << R.FC << " * " << maximo(0,FCLocal) << " = " << round(R.FC * maximo(0,FCLocal) * 1000) / 1000<< endl;
+            FCLocal = round(R.FC * maximo(0,FCLocal) * 1000) / 1000;
 
             // caso 2
             if(nCC > 1)
             {
                 if(FCFinal >= 0 && FCLocal >= 0)
                 {
-                    FCFinal = round((FCFinal + FCLocal*(1-FCFinal))*100) / 100;
+                    bitacora << "Caso 2: " << FCFinal << " + " << FCLocal << " * (1-" << FCFinal << ") = " << round((FCFinal + FCLocal*(1-FCFinal))*1000) / 1000 << endl;
+                    FCFinal = round((FCFinal + FCLocal*(1-FCFinal))*1000) / 1000;
                 }
                 else if(FCFinal <= 0 && FCLocal <= 0)
                 {
-                    FCFinal = round((FCFinal + FCLocal*(1+FCFinal))*100) / 100;
+                    bitacora << "Caso 2: " << FCFinal << " + " << FCLocal << " * (1+" << FCFinal << ") = " << round((FCFinal + FCLocal*(1-FCFinal))*1000) / 1000 << endl;
+                    FCFinal = round((FCFinal + FCLocal*(1+FCFinal))*1000) / 1000;
                 }
                 else
                 {
                     FCFinal = round(((FCFinal + FCLocal)/(1 - minimo(abs(FCFinal),abs(FCLocal))))*100) / 100;
                 }
             }else{
-                FCFinal = FCLocal;
-            } 
+                return FCLocal;
+            }
         }
 
         HMeta.FC = FCFinal;
@@ -298,9 +300,17 @@ int main(int argc, char *argv[])
     bitacora.open("bitacora.txt");
     vector<Regla> baseConocimientos;
     vector<Hecho> baseHechos;
+
     string Meta;
     leerBC(argv[1],baseConocimientos);
     leerBH(argv[2],baseHechos,Meta);
+
+
+    for(Regla r : baseConocimientos)
+    {
+        imprimirAntecedentes(r); bitacora << r.id << " Consecuente: " << r.consecuente << " FC: " << r.FC << " enlace: " << r.enlace << endl;
+    }
     encadenamiento_hacia_atras(baseConocimientos,baseHechos,Meta);
 
 }
+
