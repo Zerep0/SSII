@@ -3,8 +3,10 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
+#include <cmath>
 using namespace std;
 
+// ------------------------------- TIPOS DE DATOS ------------------------------------
 typedef enum{
     Y, O, NO
 }Enlace;
@@ -24,6 +26,36 @@ typedef struct{
 
 double FCFinal = 0;
 
+ofstream bitacora;
+
+// -------------------------------- FUNCIONES DE IMPRESION ----------------------------------------------------
+
+void imprimirCC(vector<Regla> CC)
+{
+    bitacora << "Conjunto conflicto: ";
+    for(int i = 0; i < int(CC.size()) - 1; i++)
+    {
+        bitacora << CC[i].id << ", ";
+    }
+    bitacora << CC[CC.size()-1].id << endl;
+
+}
+
+void imprimirAntecedentes(Regla r)
+{
+    bitacora << "Antecedente/s de la regla extraida: ";
+    for(int i = 0; i < int(r.antecedentes.size()) - 1; i++)
+    {
+         bitacora << r.antecedentes[i] << ", ";
+    }
+    bitacora << r.antecedentes[r.antecedentes.size()-1] << endl;
+
+}
+
+
+
+
+// -------------------------------- FUNCIONES AUXILIARES SBR-FC --------------------------------------------
 double maximo(double a, double b)
 {
     if(a >= b)
@@ -77,8 +109,7 @@ void leerBC(string BC, vector<Regla> &reglas)
             }
             getline(lineaRegla, regla.consecuente, ',');
             lineaRegla.ignore(4);
-            getline(lineaRegla, certeza, '\n');
-            regla.FC = stod(certeza);
+            lineaRegla >> regla.FC;
             reglas.push_back(regla);
         }
 
@@ -123,6 +154,7 @@ vector<Regla> equiparar(vector<Regla> baseConocimientos, string Meta)
             CC.push_back(r);
         }
     }
+    imprimirCC(CC);
     return CC;
 }
 
@@ -159,6 +191,7 @@ Regla resolver(vector<Regla> CC)
 
 void eliminar(vector<Regla> &CC)
 {
+    bitacora << "Regla eliminada " << CC[int(CC.size()) - 1].id << endl;
     CC.pop_back();
 }
 
@@ -169,12 +202,14 @@ void eliminar(vector<string> &NuevasMetas)
 
 vector<string> extraerAntecedentes(Regla R)
 {
+    imprimirAntecedentes(R);
     return R.antecedentes;
 }
 
 string seleccionarMeta(vector<string> NuevasMetas)
 {
     string Nmet = NuevasMetas[NuevasMetas.size() - 1];
+    bitacora << "Nueva meta seleccionada: " << Nmet << endl;
     return Nmet;
 }
 
@@ -207,36 +242,40 @@ double verificar(string Meta, vector<Hecho> &baseHechos, vector<Regla> baseConoc
                 }else{
                     if(R.enlace == Enlace::Y)
                     {
+                        bitacora << "Caso 1: minimo entre " << FCLocal << " y " << FCVerificado  << endl;
                         FCLocal = minimo(FCLocal,FCVerificado);
                     }else if (R.enlace == Enlace::O)
                     {
+                        bitacora << "Caso 1: maximo entre " << FCLocal << " y " << FCVerificado  << endl;
                         FCLocal = maximo(FCLocal,FCVerificado);
                     }
                 }
             }
             // caso 3
-            FCLocal = FCLocal * maximo(0,R.FC);
+            bitacora << "Caso 3: " << R.FC << " * " << maximo(0,FCLocal) << endl;
+            FCLocal = round(R.FC * maximo(0,FCLocal) * 100) / 100;
 
             // caso 2
             if(nCC > 1)
             {
                 if(FCFinal >= 0 && FCLocal >= 0)
                 {
-                    FCFinal = FCFinal + FCLocal*(1-FCFinal);
+                    FCFinal = round((FCFinal + FCLocal*(1-FCFinal))*100) / 100;
                 }
                 else if(FCFinal <= 0 && FCLocal <= 0)
                 {
-                    FCFinal = FCFinal + FCLocal*(1+FCFinal);
+                    FCFinal = round((FCFinal + FCLocal*(1+FCFinal))*100) / 100;
                 }
                 else
                 {
-                    FCFinal = (FCFinal + FCLocal)/(1 - minimo(abs(FCFinal),abs(FCLocal)));
+                    FCFinal = round(((FCFinal + FCLocal)/(1 - minimo(abs(FCFinal),abs(FCLocal))))*100) / 100;
                 }
             }else{
                 FCFinal = FCLocal;
-            }
+            } 
         }
 
+        HMeta.FC = FCFinal;
         baseHechos.push_back(HMeta);
 
 
@@ -256,6 +295,7 @@ void encadenamiento_hacia_atras(vector<Regla> &baseConocimientos, vector<Hecho> 
 
 int main(int argc, char *argv[])
 {
+    bitacora.open("bitacora.txt");
     vector<Regla> baseConocimientos;
     vector<Hecho> baseHechos;
     string Meta;
