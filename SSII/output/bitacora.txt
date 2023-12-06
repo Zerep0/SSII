@@ -1,0 +1,33 @@
+Antecedente/s de R1: h2, h3
+R1 Consecuente: h1 FC: 0.5 enlace: 1
+Antecedente/s de R2: h4
+R2 Consecuente: h1 FC: 1 enlace: 2
+Antecedente/s de R3: h5, h6
+R3 Consecuente: h3 FC: 0.7 enlace: 0
+Antecedente/s de R4: h7
+R4 Consecuente: h3 FC: -0.5 enlace: 2
+Conjunto conflicto: R1, R2
+Regla eliminada R2
+Antecedente/s de R2: h4
+Nueva meta seleccionada: h4
+Caso 3: 1 * 0.6 = 0.6
+Caso 2: 0 + 0.6 * (1-0) = 0.6
+Regla eliminada R1
+Antecedente/s de R1: h2, h3
+Nueva meta seleccionada: h3
+Conjunto conflicto: R3, R4
+Regla eliminada R4
+Antecedente/s de R4: h7
+Nueva meta seleccionada: h7
+Caso 3: -0.5 * 0.5 = -0.25
+Regla eliminada R3
+Antecedente/s de R3: h5, h6
+Nueva meta seleccionada: h6
+Nueva meta seleccionada: h5
+Caso 1: minimo entre 0.9 y 0.3
+Caso 3: 0.7 * 0.3 = 0.21
+Caso 2: 0.47 + 0.21 * (1-0.47) = 0.581
+Nueva meta seleccionada: h2
+Caso 1: maximo entre 0.581 o 0.6
+Caso 3: 0.5 * 0.6 = 0.3
+Caso 2: 0.581 + 0.3 * (1-0.581) = 0.707

@@ -28,6 +28,8 @@ double FCFinal = 0;
 
 ofstream bitacora;
 
+int precision = 100;
+
 // -------------------------------- FUNCIONES DE IMPRESION ----------------------------------------------------
 
 void imprimirCC(vector<Regla> CC)
@@ -252,25 +254,25 @@ double verificar(string Meta, vector<Hecho> &baseHechos, vector<Regla> baseConoc
                 }
             }
             // caso 3
-            bitacora << "Caso 3: " << R.FC << " * " << maximo(0,FCLocal) << " = " << round(R.FC * maximo(0,FCLocal) * 1000) / 1000<< endl;
-            FCLocal = round(R.FC * maximo(0,FCLocal) * 1000) / 1000;
+            bitacora << "Caso 3: " << R.FC << " * " << maximo(0,FCLocal) << " = " << round(R.FC * maximo(0,FCLocal) * precision) / precision<< endl;
+            FCLocal = round(R.FC * maximo(0,FCLocal) * precision) / precision;
 
             // caso 2
             if(nCC > 1)
             {
                 if(FCFinal >= 0 && FCLocal >= 0)
                 {
-                    bitacora << "Caso 2: " << FCFinal << " + " << FCLocal << " * (1-" << FCFinal << ") = " << round((FCFinal + FCLocal*(1-FCFinal))*1000) / 1000 << endl;
-                    FCFinal = round((FCFinal + FCLocal*(1-FCFinal))*1000) / 1000;
+                    bitacora << "Caso 2: " << FCFinal << " + " << FCLocal << " * (1-" << FCFinal << ") = " << round((FCFinal + FCLocal*(1-FCFinal))*precision) / precision << endl;
+                    FCFinal = round((FCFinal + FCLocal*(1-FCFinal))*precision) / precision;
                 }
                 else if(FCFinal <= 0 && FCLocal <= 0)
                 {
-                    bitacora << "Caso 2: " << FCFinal << " + " << FCLocal << " * (1+" << FCFinal << ") = " << round((FCFinal + FCLocal*(1-FCFinal))*1000) / 1000 << endl;
-                    FCFinal = round((FCFinal + FCLocal*(1+FCFinal))*1000) / 1000;
+                    bitacora << "Caso 2: " << FCFinal << " + " << FCLocal << " * (1+" << FCFinal << ") = " << round((FCFinal + FCLocal*(1-FCFinal))*precision) / precision << endl;
+                    FCFinal = round((FCFinal + FCLocal*(1+FCFinal))*precision) / precision;
                 }
                 else
                 {
-                    FCFinal = round(((FCFinal + FCLocal)/(1 - minimo(abs(FCFinal),abs(FCLocal))))*100) / 100;
+                    FCFinal = round(((FCFinal + FCLocal)/(1 - minimo(abs(FCFinal),abs(FCLocal))))*precision) / precision;
                 }
             }else{
                 return FCLocal;
