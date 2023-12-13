@@ -1,22 +1,22 @@
 Antecedente/s de R1: arbMod
 R1 Consecuente: ganaEST FC: 0.4 enlace: 2
 Antecedente/s de R4: publicoEqui
-R4 Consecuente: ganaEST FC: 0 enlace: 2
+R4 Consecuente: ganaEST FC: -0.55 enlace: 2
 Antecedente/s de R6: les2pivEST
-R6 Consecuente: ganaEST FC: 0 enlace: 2
+R6 Consecuente: ganaEST FC: -0.6 enlace: 2
 Conjunto conflicto: R1, R4, R6
 Regla eliminada R6
 Antecedente/s de R6: les2pivEST
 Nueva meta seleccionada: les2pivEST
-Caso 3: 0 * 1 = 0
-Caso 2: 0 + 0 * (1-0) = 0
+Caso 3: -0.6 * 1 = -0.6
+Caso 2: 0 + -0.6 * (1+0) = -0.6
 Regla eliminada R4
 Antecedente/s de R4: publicoEqui
 Nueva meta seleccionada: publicoEqui
-Caso 3: 0 * 0.35 = 0
-Caso 2: 0 + 0 * (1-0) = 0
+Caso 3: -0.55 * 0.35 = -0.193
+Caso 2: -0.6 + -0.193 * (1+-0.6) = -0.909
 Regla eliminada R1
 Antecedente/s de R1: arbMod
 Nueva meta seleccionada: arbMod
 Caso 3: 0.4 * 1 = 0.4
-Caso 2: 0 + 0.4 * (1-0) = 0.4
+Caso 2: -0.677 + 0.4/(1- 0.4)

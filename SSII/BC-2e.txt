@@ -1,4 +1,4 @@
 3
 R1: Si arbMod Entonces ganaEST, FC=0.4
-R4: Si publicoEqui Entonces ganaEST, FC=−0.55
-R6: Si les2pivEST Entonces ganaEST, FC=−0.6
+R4: Si publicoEqui Entonces ganaEST, FC=-0.55
+R6: Si les2pivEST Entonces ganaEST, FC=-0.6

@@ -4,6 +4,7 @@
 #include <fstream>
 #include <sstream>
 #include <cmath>
+#include <algorithm>
 using namespace std;
 
 // ------------------------------- TIPOS DE DATOS ------------------------------------
@@ -28,7 +29,7 @@ double FCFinal = 0;
 
 ofstream bitacora;
 
-int precision = 100;
+int precision = 1000;
 
 // -------------------------------- FUNCIONES DE IMPRESION ----------------------------------------------------
 
@@ -89,7 +90,7 @@ void leerBC(string BC, vector<Regla> &reglas)
             Regla regla;
             regla.enlace = Enlace::NO;
 
-            string certeza;
+            
             getline(lineaRegla, regla.id, ':');
 
             string h;
@@ -272,6 +273,7 @@ double verificar(string Meta, vector<Hecho> &baseHechos, vector<Regla> baseConoc
                 }
                 else
                 {
+                    bitacora << "Caso 2: " << FCFinal << " + " << FCLocal << "/(1- " << minimo(abs(FCFinal),abs(FCLocal)) << ")" << endl;
                     FCFinal = round(((FCFinal + FCLocal)/(1 - minimo(abs(FCFinal),abs(FCLocal))))*precision) / precision;
                 }
             }else{
