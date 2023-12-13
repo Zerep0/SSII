@@ -1,6 +1,0 @@
-3
-A, FC=1.0
-B, FC=1.0
-C, FC=0.5
-Objetivo
-R

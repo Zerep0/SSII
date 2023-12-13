@@ -29,7 +29,9 @@ double FCFinal = 0;
 
 ofstream bitacora;
 
+
 int precision = 1000;
+
 
 // -------------------------------- FUNCIONES DE IMPRESION ----------------------------------------------------
 

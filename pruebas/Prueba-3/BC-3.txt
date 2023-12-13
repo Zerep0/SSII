@@ -1,0 +1,8 @@
+7
+R1: Si 2_3anios Entonces experimentado, FC=0.5
+R2: Si mas3anios Entonces experimentado, FC=0.9
+R3: Si conduce2_3 Entonces cansado, FC=0.5
+R4: Si conducemas3 Entonces cansado, FC=1
+R5: Si experimentado y acompaniado Entonces accidente, FC=-0.5
+R6: Si cansado Entonces accidente, FC=0.5
+R7: Si joven y bebe Entonces accidente, FC=0.7
