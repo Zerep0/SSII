@@ -1,0 +1,8 @@
+5
+quiero, FC=1
+facil_programar, FC=1
+diseño_dificil, FC=1
+conceptos, FC=0.4
+conocimiento, FC=0.6
+Objetivo
+incentivado

@@ -1,0 +1,6 @@
+5
+R1: Si facil_programar y interesante Entonces incentivado, FC=0.5
+R2: Si conceptos o conocimiento Entonces interesante, FC=0.8
+R3: Si quiero Entonces solo, FC=0.7
+R4: Si solo Entonces incentivado, FC=0.8
+R5: Si diseño_dificil Entonces incentivado, FC=-0.4

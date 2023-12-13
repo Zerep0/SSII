@@ -1,22 +1,56 @@
-Antecedente/s de R1: arbMod
-R1 Consecuente: ganaEST FC: 0.4 enlace: 2
-Antecedente/s de R4: publicoEqui
-R4 Consecuente: ganaEST FC: 0 enlace: 2
-Antecedente/s de R6: les2pivEST
-R6 Consecuente: ganaEST FC: 0 enlace: 2
-Conjunto conflicto: R1, R4, R6
+Antecedente/s de R1: 2_3anios
+R1 Consecuente: experimentado FC: 0.5 enlace: 2
+Antecedente/s de R2: mas3anios
+R2 Consecuente: experimentado FC: 0.9 enlace: 2
+Antecedente/s de R3: conduce2_3
+R3 Consecuente: cansado FC: 0.5 enlace: 2
+Antecedente/s de R4: conducemas3
+R4 Consecuente: cansado FC: 1 enlace: 2
+Antecedente/s de R5: experimentado, acompaniado
+R5 Consecuente: accidente FC: -0.5 enlace: 0
+Antecedente/s de R6: cansado
+R6 Consecuente: accidente FC: 0.5 enlace: 2
+Antecedente/s de R7: joven, bebe
+R7 Consecuente: accidente FC: 0.7 enlace: 0
+Conjunto conflicto: R5, R6, R7
+Regla eliminada R7
+Antecedente/s de R7: joven, bebe
+Nueva meta seleccionada: bebe
+Nueva meta seleccionada: joven
+Caso 1: minimo entre 0.5 y 0
+Caso 3: 0.7 * 0 = 0
+Caso 2: 0 + 0 * (1-0) = 0
 Regla eliminada R6
-Antecedente/s de R6: les2pivEST
-Nueva meta seleccionada: les2pivEST
-Caso 3: 0 * 1 = 0
-Caso 2: 0 + 0 * (1-0) = 0
+Antecedente/s de R6: cansado
+Nueva meta seleccionada: cansado
+Conjunto conflicto: R3, R4
 Regla eliminada R4
-Antecedente/s de R4: publicoEqui
-Nueva meta seleccionada: publicoEqui
-Caso 3: 0 * 0.35 = 0
-Caso 2: 0 + 0 * (1-0) = 0
+Antecedente/s de R4: conducemas3
+Nueva meta seleccionada: conducemas3
+Caso 3: 1 * 1 = 1
+Caso 2: 0 + 1 * (1-0) = 1
+Regla eliminada R3
+Antecedente/s de R3: conduce2_3
+Nueva meta seleccionada: conduce2_3
+Caso 3: 0.5 * 0 = 0
+Caso 2: 1 + 0 * (1-1) = 1
+Caso 3: 0.5 * 1 = 0.5
+Caso 2: 1 + 0.5 * (1-1) = 1
+Regla eliminada R5
+Antecedente/s de R5: experimentado, acompaniado
+Nueva meta seleccionada: acompaniado
+Nueva meta seleccionada: experimentado
+Conjunto conflicto: R1, R2
+Regla eliminada R2
+Antecedente/s de R2: mas3anios
+Nueva meta seleccionada: mas3anios
+Caso 3: 0.9 * 0 = 0
+Caso 2: 1 + 0 * (1-1) = 1
 Regla eliminada R1
-Antecedente/s de R1: arbMod
-Nueva meta seleccionada: arbMod
-Caso 3: 0.4 * 1 = 0.4
-Caso 2: 0 + 0.4 * (1-0) = 0.4
+Antecedente/s de R1: 2_3anios
+Nueva meta seleccionada: 2_3anios
+Caso 3: 0.5 * 1 = 0.5
+Caso 2: 1 + 0.5 * (1-1) = 1
+Caso 1: minimo entre -1 y 1
+Caso 3: -0.5 * 0 = -0
+Caso 2: 1 + -0 * (1-1) = 1

@@ -1,5 +1,0 @@
-3
-R1: Si A Entonces G, FC=0.5
-R2: Si B y C Entonces G, FC=0.9
-R3: Si G Entonces R, FC=0.99
-
