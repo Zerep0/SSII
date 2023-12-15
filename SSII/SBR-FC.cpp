@@ -258,7 +258,7 @@ double verificar(string Meta, vector<Hecho> &baseHechos, vector<Regla> baseConoc
                 }
             }
             // caso 3
-            bitacora << "Caso 3: " << R.FC << " * " << maximo(0,FCLocal) << " = " << round(R.FC * maximo(0,FCLocal) * precision) / precision<< endl;
+            bitacora << "Caso 3 con la regla " << R.id << ": " << R.FC << " * " << maximo(0,FCLocal) << " = " << round(R.FC * maximo(0,FCLocal) * precision) / precision<< endl;
             FCLocal = round(R.FC * maximo(0,FCLocal) * precision) / precision;
 
             // caso 2
@@ -304,19 +304,13 @@ void encadenamiento_hacia_atras(vector<Regla> &baseConocimientos, vector<Hecho> 
 
 int main(int argc, char *argv[])
 {
-    bitacora.open("bitacora.txt");
+    bitacora.open("log.txt");
     vector<Regla> baseConocimientos;
     vector<Hecho> baseHechos;
 
     string Meta;
     leerBC(argv[1],baseConocimientos);
     leerBH(argv[2],baseHechos,Meta);
-
-
-    for(Regla r : baseConocimientos)
-    {
-        imprimirAntecedentes(r); bitacora << r.id << " Consecuente: " << r.consecuente << " FC: " << r.FC << " enlace: " << r.enlace << endl;
-    }
     encadenamiento_hacia_atras(baseConocimientos,baseHechos,Meta);
 
 }
