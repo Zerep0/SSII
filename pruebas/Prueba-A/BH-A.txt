@@ -1,0 +1,9 @@
+6
+papaEnfermo, FC=1     
+mamaEnferma, FC=0.6  
+votasSigilo, FC=0.7
+esNoche, FC=1         
+noPerros, FC=1  
+guardiaDuerme, FC=0.3
+Objetivo
+escapaJulieta

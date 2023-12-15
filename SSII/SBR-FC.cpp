@@ -25,7 +25,7 @@ typedef struct{
     double FC;
 }Hecho;
 
-double FCFinal = 0;
+
 
 ofstream bitacora;
 
@@ -220,6 +220,7 @@ string seleccionarMeta(vector<string> NuevasMetas)
 
 double verificar(string Meta, vector<Hecho> &baseHechos, vector<Regla> baseConocimientos)
 {
+    double FCFinal = 0;
     Hecho HMeta;
     if(contenido(Meta,baseHechos,HMeta))
     {
