@@ -1,2 +1,41 @@
 BC-A.txtBH-A.txt
-Aunque no hay una evidencia clara, hay indicios de que escapaJulieta puede no llegar a darse
+Conjunto conflicto: R5, R6
+Regla eliminada R6
+Antecedente/s de R6: entraPalacio
+Nueva meta seleccionada: entraPalacio
+Conjunto conflicto: R2
+Regla eliminada R2
+Antecedente/s de R2: botasSigilo, saltaValla
+Nueva meta seleccionada: saltaValla
+Conjunto conflicto: R1
+Regla eliminada R1
+Antecedente/s de R1: noPerros
+Nueva meta seleccionada: noPerros
+Caso 3 con la regla R1: 0.7 * 1 = 0.7
+Nueva meta seleccionada: botasSigilo
+Caso 1 entre botasSigilo y el resultado acumulado: minimo entre 0.7 y 0.7
+Caso 3 con la regla R2: 0.9 * 0.7 = 0.63
+Caso 3 con la regla R6: 1 * 0.63 = 0.63
+Caso 2 añadiendo al hecho escapaJulieta el resultado de la regla R6: 0 + 0.63 * (1-0) = 0.63
+Regla eliminada R5
+Antecedente/s de R5: noSeguridad
+Nueva meta seleccionada: noSeguridad
+Conjunto conflicto: R4
+Regla eliminada R4
+Antecedente/s de R4: guardiaDuerme, noCriadas, esNoche
+Nueva meta seleccionada: esNoche
+Nueva meta seleccionada: noCriadas
+Conjunto conflicto: R3
+Regla eliminada R3
+Antecedente/s de R3: papaEnfermo, mamaEnferma
+Nueva meta seleccionada: mamaEnferma
+Nueva meta seleccionada: papaEnfermo
+Caso 1 entre papaEnfermo y el resultado acumulado: maximo entre 0.6 o 1
+Caso 3 con la regla R3: 1 * 1 = 1
+Caso 1 entre noCriadas y el resultado acumulado: minimo entre 1 y 1
+Nueva meta seleccionada: guardiaDuerme
+Caso 1 entre guardiaDuerme y el resultado acumulado: minimo entre 1 y 0.3
+Caso 3 con la regla R4: 0.8 * 0.3 = 0.24
+Caso 3 con la regla R5: 0.6 * 0.24 = 0.144
+Caso 2 añadiendo al hecho escapaJulieta el resultado de la regla R5: 0.63 + 0.144 * (1-0.63) = 0.683
+Las evidencias son bastante claras y apuntan a que escapaJulieta va a darse
