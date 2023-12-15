@@ -1,6 +1,6 @@
 6
 R1: Si noPerros Entonces saltaValla, FC=0.7
-R2: Si votasSigilo y saltaValla Entonces entraPalacio, FC=0.9
+R2: Si botasSigilo y saltaValla Entonces entraPalacio, FC=0.9
 R3: Si papaEnfermo o mamaEnferma Entonces noCriadas, FC=1
 R4: Si guardiaDuerme y noCriadas y esNoche Entonces noSeguridad, FC=0.8
 R5: Si noSeguridad Entonces escapaJulieta, FC=0.6
