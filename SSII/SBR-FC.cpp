@@ -57,7 +57,48 @@ void imprimirAntecedentes(Regla r)
 
 }
 
-
+void analisisCasos(double resultadoFC, string Meta)
+{
+    if(resultadoFC <= -0.75 && resultadoFC >= -1)
+    {
+        cout << "Podemos afirmar casi en su total seguridad que " << Meta << " no va a darse" << endl;
+        bitacora << "Podemos afirmar casi en su total seguridad que " << Meta << " no va a darse" << endl;
+    }
+    else if(resultadoFC <= -0.65 && resultadoFC > -0.75)
+    {
+        cout << "Las evidencias son bastante claras y apuntan a que " << Meta << " no va a darse" << endl;
+        bitacora << "Las evidencias son bastante claras y apuntan a que " << Meta << " no va a darse" << endl;
+    }
+    else if(resultadoFC <= -0.5 && resultadoFC >= -0.64)
+    {
+        cout << "Aunque no hay una evidencia clara, hay indicios de que " << Meta << " puede no llegar a darse" << endl;
+        bitacora << "Aunque no hay una evidencia clara, hay indicios de que " << Meta << " puede no llegar a darse" << endl;
+    }
+    else if(resultadoFC < 0 && resultadoFC >= -0.49)
+    {
+        cout << "No hay una evidencia clara de que " << Meta << " va a ocurrir" << endl;
+        bitacora << "No hay una evidencia clara de que " << Meta << " va a ocurrir" << endl;
+    }else if(resultadoFC == 0)
+    {
+        cout << "No tenemos ninguna evidencia sobre si " << Meta << " puede llegar a ocurrir" << endl;
+    }
+    else if(resultadoFC > 0 && resultadoFC <= 0.49)
+    {
+        cout << "Hay una ligera evidencia de que " << Meta << " pueda llegar a suceder" << endl;
+        bitacora << "Hay una ligera evidencia de que " << Meta << " pueda llegar a suceder" << endl;
+    }else if(resultadoFC >= 0.5 && resultadoFC < 0.64)
+    {
+        cout << "Aunque no hay una evidencia clara, hay indicios de que " << Meta << " pueda llegar a darse" << endl;
+        bitacora << "Aunque no hay una evidencia clara, hay indicios de que " << Meta << " pueda llegar a darse" << endl;
+    }else if(resultadoFC >= 0.65 && resultadoFC < 0.75)
+    {
+        cout << "Las evidencias son bastante claras y apuntan a que " << Meta << " va a darse" << endl;
+        bitacora << "Las evidencias son bastante claras y apuntan a que " << Meta << " va a darse" << endl;
+    }else{
+        cout << "Podemos afirmar casi en su total seguridad que " << Meta << " va a darse" << endl;
+        bitacora << "Podemos afirmar casi en su total seguridad que " << Meta << " va a darse" << endl;
+    }
+}
 
 
 // -------------------------------- FUNCIONES AUXILIARES SBR-FC --------------------------------------------
@@ -236,6 +277,7 @@ double verificar(string Meta, vector<Hecho> &baseHechos, vector<Regla> baseConoc
             vector<string> NuevasMetas = extraerAntecedentes(R);
             double FCLocal = 0;
             bool primeraVez = true;
+            string infoSobreOpMetas = "";
             while(!estaVacio(NuevasMetas))
             {
                 string Nmet = seleccionarMeta(NuevasMetas);
@@ -248,11 +290,12 @@ double verificar(string Meta, vector<Hecho> &baseHechos, vector<Regla> baseConoc
                 }else{
                     if(R.enlace == Enlace::Y)
                     {
-                        bitacora << "Caso 1: minimo entre " << FCLocal << " y " << FCVerificado  << endl;
+                        infoSobreOpMetas = Nmet;
+                        bitacora << "Caso 1 entre " << Nmet << " y el resultado acumulado: minimo entre " << FCLocal << " y " << FCVerificado  << endl;
                         FCLocal = minimo(FCLocal,FCVerificado);
                     }else if (R.enlace == Enlace::O)
                     {
-                        bitacora << "Caso 1: maximo entre " << FCLocal << " o " << FCVerificado  << endl;
+                        bitacora << "Caso 1 entre " << Nmet << " y el resultado acumulado: maximo entre " << FCLocal << " o " << FCVerificado  << endl;
                         FCLocal = maximo(FCLocal,FCVerificado);
                     }
                 }
@@ -266,17 +309,17 @@ double verificar(string Meta, vector<Hecho> &baseHechos, vector<Regla> baseConoc
             {
                 if(FCFinal >= 0 && FCLocal >= 0)
                 {
-                    bitacora << "Caso 2: " << FCFinal << " + " << FCLocal << " * (1-" << FCFinal << ") = " << round((FCFinal + FCLocal*(1-FCFinal))*precision) / precision << endl;
+                    bitacora << "Caso 2 añadiendo al hecho " << Meta << " el resultado de la regla " << R.id << ": " << FCFinal << " + " << FCLocal << " * (1-" << FCFinal << ") = " << round((FCFinal + FCLocal*(1-FCFinal))*precision) / precision << endl;
                     FCFinal = round((FCFinal + FCLocal*(1-FCFinal))*precision) / precision;
                 }
                 else if(FCFinal <= 0 && FCLocal <= 0)
                 {
-                    bitacora << "Caso 2: " << FCFinal << " + " << FCLocal << " * (1+" << FCFinal << ") = " << round((FCFinal + FCLocal*(1-FCFinal))*precision) / precision << endl;
+                    bitacora << "Caso 2 añadiendo al hecho " << Meta << " el resultado de la regla " << R.id << ": " << FCFinal << " + " << FCLocal << " * (1+" << FCFinal << ") = " << round((FCFinal + FCLocal*(1-FCFinal))*precision) / precision << endl;
                     FCFinal = round((FCFinal + FCLocal*(1+FCFinal))*precision) / precision;
                 }
                 else
                 {
-                    bitacora << "Caso 2: " << FCFinal << " + " << FCLocal << "/(1- " << minimo(abs(FCFinal),abs(FCLocal)) << ")" << endl;
+                    bitacora << "Caso 2 añadiendo al hecho " << Meta << " el resultado de la regla " << R.id << ": " << FCFinal << " + " << FCLocal << "/(1- " << minimo(abs(FCFinal),abs(FCLocal)) << ")" << endl;
                     FCFinal = round(((FCFinal + FCLocal)/(1 - minimo(abs(FCFinal),abs(FCLocal))))*precision) / precision;
                 }
             }else{
@@ -299,12 +342,15 @@ double verificar(string Meta, vector<Hecho> &baseHechos, vector<Regla> baseConoc
 
 void encadenamiento_hacia_atras(vector<Regla> &baseConocimientos, vector<Hecho> &baseHechos, string Meta)
 {
-     cout << verificar(Meta,baseHechos,baseConocimientos);
+    double resultadoFC = verificar(Meta,baseHechos,baseConocimientos);
+    analisisCasos(resultadoFC, Meta);
 }
 
 int main(int argc, char *argv[])
 {
-    bitacora.open("log.txt");
+    string nombreFichero = (string)argv[1] + (string)argv[2];
+    bitacora.open(nombreFichero);
+    bitacora << nombreFichero << endl;
     vector<Regla> baseConocimientos;
     vector<Hecho> baseHechos;
 

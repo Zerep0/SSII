@@ -1,10 +1,9 @@
-7
-marisaPatio, FC=0.6
-marianoBarbacoa, FC=-0.6
-mauriVentana, FC=-0.7
-mauriFuera, FC=1
-vicentaFuera, FC=1
-mauriCocina, FC=0.75
-alarmaSuena, FC=1
-Objetivo:
-patioHumo
+6
+papaEnfermo, FC=1     
+mamaEnferma, FC=0.6  
+botasSigilo, FC=0.7
+esNoche, FC=1         
+noPerros, FC=1  
+guardiaDuerme, FC=0.3
+Objetivo
+escapaJulieta

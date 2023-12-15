@@ -1,7 +1,7 @@
 6
-R1: Si marisaPatio o vicentaFuera Entonces marisaFuma, FC=0.6
-R2: Si marisaFuma Entonces patioHumo, FC=0.9
-R3: Si mauriFuera y mauriCocina Entonces mauriQuema, FC=0.7
-R4: Si mauriQuema y mauriVentana Entonces patioHumo, FC=0.8
-R5: Si marianoBarbacoa Entonces patioHumo, FC=1
-R6: Si alarmaSuena Entonces patioHumo, FC=0.45
+R1: Si noPerros Entonces saltaValla, FC=0.7
+R2: Si botasSigilo y saltaValla Entonces entraPalacio, FC=0.9
+R3: Si papaEnfermo o mamaEnferma Entonces noCriadas, FC=1
+R4: Si guardiaDuerme y noCriadas y esNoche Entonces noSeguridad, FC=0.8
+R5: Si noSeguridad Entonces escapaJulieta, FC=0.6
+R6: Si entraPalacio Entonces escapaJulieta, FC=1
